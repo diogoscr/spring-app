@@ -13,7 +13,7 @@ public class WarningResource {
 
     @GetMapping
     public ResponseEntity<Warning> findAll() {
-        Warning w = new Warning(1L, "aviso de matrícula", "prezados alunos realizarem a matrícula");
+        Warning w = new Warning(1L, "aviso de matrícula", "prezados alunos realizarem a matrícula", "20/01/2021", "25/01/2021");
         return ResponseEntity.ok().body(w);
         
     }
