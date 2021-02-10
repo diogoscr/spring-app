@@ -1,27 +1,41 @@
 package com.diogoscr.springboot.entities;
-    
+
 import java.io.Serializable;
-    
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Warning implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title; 
+
+    private String title;
     private String description;
-    
+    private String pubDate;
+    private String visDate;
+
     public Warning() {
     }
 
-    public Warning(Long id, String title, String description) {
+   
+    public Warning(Long id, String title, String description, String pubDate, String visDate) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.setPubDate(pubDate);
+        this.setVisDate(visDate);
     }
-
+    
     public Long getId() {
         return id;
     }
-        
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -40,6 +54,21 @@ public class Warning implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    public String getVisDate() {
+        return visDate;
+    }
+
+    public void setVisDate(String visDate) {
+        this.visDate = visDate;
+    }
+
+    public String getPubDate() {
+        return pubDate;
+    }
+
+    public void setPubDate(String pubDate) {
+        this.pubDate = pubDate;
     }
 
     @Override
@@ -66,5 +95,5 @@ public class Warning implements Serializable {
             return false;
         return true;
     }
-     
+ 
 }
