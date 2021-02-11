@@ -2,6 +2,9 @@ package com.diogoscr.springboot.services;
 
 import java.util.List;
 import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
+
 import com.diogoscr.springboot.entities.Warning;
 import com.diogoscr.springboot.repositories.WarningRepository;
 import com.diogoscr.springboot.services.exceptions.ResourceNotFoundException;
@@ -42,10 +45,14 @@ public class WarningService {
     }
 
     public Warning update(Long id, Warning obj) {
+
+        try {
         Warning entity = repository.getOne(id);
         updateData(entity, obj);
-        return repository.save(entity);
-
+        return repository.save(entity); }
+        catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void updateData(Warning entity, Warning obj) {
