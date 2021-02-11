@@ -30,4 +30,20 @@ public class WarningService {
         repository.deleteById(id);
     }
 
+    public Warning update(Long id, Warning obj) {
+        Warning entity = repository.getOne(id);
+        updateData(entity, obj);
+        return repository.save(entity);
+
+    }
+
+    private void updateData(Warning entity, Warning obj) {
+        entity.setTitle(obj.getTitle());
+        entity.setDescription(obj.getDescription());
+        entity.setPubDate(obj.getPubDate());
+        entity.setVisDate(obj.getPubDate());
+    }
+
+
+
 }
