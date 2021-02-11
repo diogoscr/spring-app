@@ -7,6 +7,7 @@ import com.diogoscr.springboot.repositories.WarningRepository;
 import com.diogoscr.springboot.services.exceptions.ResourceNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,7 +30,15 @@ public class WarningService {
     }
 
     public void delete(Long id) {
-        repository.deleteById(id);
+        try {
+            repository.deleteById(id);
+        }
+        catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id);
+        }
+        catch (RuntimeException e) {
+            e.printStackTrace();
+        }
     }
 
     public Warning update(Long id, Warning obj) {
