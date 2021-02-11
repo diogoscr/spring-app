@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import com.diogoscr.springboot.entities.Warning;
 import com.diogoscr.springboot.repositories.WarningRepository;
+import com.diogoscr.springboot.services.exceptions.ResourceNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,7 @@ public class WarningService {
 
     public Warning findById(Long id) {
         Optional<Warning> obj = repository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public Warning insert(Warning obj) {
